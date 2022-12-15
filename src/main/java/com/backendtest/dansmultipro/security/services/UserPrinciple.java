@@ -1,11 +1,10 @@
 package com.backendtest.dansmultipro.security.services;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.backendtest.dansmultipro.models.User;
@@ -45,7 +44,7 @@ public class UserPrinciple implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
+        return new HashSet<GrantedAuthority>();
     }
 
     public Long getId() {
