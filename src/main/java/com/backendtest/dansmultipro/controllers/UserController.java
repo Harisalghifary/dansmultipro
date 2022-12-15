@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -28,6 +29,21 @@ public class UserController {
         Object[] result = restTemplate.getForObject(uri, Object[].class);
 
         return Arrays.asList(result);
+
+    }
+
+    @GetMapping("/jobs/{id}")
+    public ResponseEntity<?> getJobById(@PathVariable("id") String id) {
+        Object job = getExternalJobById(id);
+        return ResponseEntity.ok(job);
+    }
+
+    private static Object getExternalJobById(String id) {
+        final String uri = String.format("http://dev3.dansmultipro.co.id/api/recruitment/positions/%s", id);
+        RestTemplate restTemplate = new RestTemplate();
+        Object result = restTemplate.getForObject(uri, Object.class);
+
+        return result;
 
     }
 }
